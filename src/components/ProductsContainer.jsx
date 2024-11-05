@@ -17,10 +17,10 @@ export default function ProductsContainer() {
       ? `Product with id "${id}" is removed from Cart successfully!`
       : `Product with id "${id}" is added to Cart successfully!`;
   
-    setCart(
+    setCart((prevCart)=>
       isAdded
-        ? cart.filter((item) => item !== id)
-        : [...cart, id]
+        ? prevCart.filter((item) => item !== id)
+        : [...prevCart, id]
     );
   
     // Show the toast message after cart update
