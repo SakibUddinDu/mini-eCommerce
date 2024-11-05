@@ -4,6 +4,8 @@ import { useProducts } from "../context/ProductsProvider";
 export default function Search() {
   const {handleSearch, searchTerm}=useProducts()
 
+
+
     return (
         <div className="flex flex-1 items-center px-3.5 py-2 text-gray-400 group hover:ring-1 hover:ring-gray-300 focus-within:!ring-2 ring-inset focus-within:!ring-teal-500 rounded-md">
         <SearchSvg/>

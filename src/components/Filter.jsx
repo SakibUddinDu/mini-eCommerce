@@ -2,17 +2,14 @@ import { useState } from "react";
 import FilterSvg from "../svgs/FilterSvg";
 import useFetch from "../hooks/useFetch";
 import { useProducts } from "../context/ProductsProvider";
+import useDropdown from "../hooks/useDropdown";
 
 export default function Filter() {
   const {selectedCategory, handleCategoryChange}=useProducts()
   const baseUrl = import.meta.env.VITE_API_URL;
 
   const { data, loading, error } = useFetch(`${baseUrl}/products/categories`);
-  const [filterOptionsShow, setFilterOptionsShow] = useState(false);
-
-  const handleFilterShow = ()=>{
-    setFilterOptionsShow((prev)=>!prev)
-  }
+  const { isDropdownVisible, toggleDropdown, dropdownRef } = useDropdown();
 
   return (
     <div className="relative inline-block text-left">
@@ -23,13 +20,13 @@ export default function Filter() {
           id="filter-button"
           aria-expanded="false"
           aria-haspopup="true"
-          onClick={handleFilterShow}
+          onClick={toggleDropdown}
         >
           Filter
           <FilterSvg />
         </button>
       </div>
-      {filterOptionsShow && (
+      {isDropdownVisible  && (
         <div
           className="absolute z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
           role="menu"
@@ -37,6 +34,7 @@ export default function Filter() {
           aria-labelledby="filter-button"
           tabIndex="-1"
           id="filter-dropdown"
+          ref={dropdownRef}
         >
           <div className="py-1" role="none">
             {
